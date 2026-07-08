@@ -8,7 +8,10 @@ RUN apk add --no-cache git make build-base && \
 FROM alpine:latest
 COPY --from=builder /root/vlmcsd/bin/vlmcsd /vlmcsd
 COPY --from=builder /root/vlmcsd/etc/vlmcsd.kmd /vlmcsd.kmd
-RUN apk add --no-cache tzdata
+ENV TZ=Europe/Moscow
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo "$TZ" > /etc/timezone
 
 EXPOSE 1688/tcp
 
