@@ -1,0 +1,7 @@
+services:
+  vlmcsd:
+    container_name: vlmcsd
+    build: .
+    ports:
+      - "1688:1688"
+    restart: unless-stopped
